@@ -33,8 +33,14 @@ count = 0
 myquery = { "url": { "$regex": "http://www.akhbarbank.com" } }
 for a in articles.find(myquery):
     if count > -1:
-        row_contents = [a["title"].replace('\t',''), a["url"].replace('\t',''), a["article_section"], a["summary"].replace('\t',''), a["date"].replace('\t',''),
-                        a["code"].replace('\t',''), a["tags"], a["text"].replace('\t','')]
+        row_contents = [" " if a["title"] is None else a["title"].replace('\t',''),
+                        " " if a["url"] is None else a["url"].replace('\t', ''),
+                        a["article_section"],
+                        " " if a["summary"] is None else a["summary"].replace('\t', ''),
+                        " " if a["date"] is None else a["date"].replace('\t', ''),
+                        " " if a["code"] is None else a["code"].replace('\t', ''),
+                        a["tags"],
+                        " " if a["text"] is None else a["text"].replace('\t', '')]
         print("*******************************************************************************")
         print(row_contents)
         count += 1    
