@@ -23,8 +23,14 @@ from pymongo import MongoClient
 client = MongoClient()
 db = client['newsdb_week']
 articles = db.weekarticles
+
+row_contents = ["title", "url", "article_section", "summary", "date", "code", "tags", "text"]
+with open('news_data.csv', 'w') as data_file:
+    newFileWriter = csv.writer(data_file)
+    newFileWriter.writerow(row_contents)
+
 count = 0
-myquery = { "url": { "$regex": "https://namehnews.com/" } }
+myquery = { "url": { "$regex": "http://www.akhbarbank.com" } }
 for a in articles.find(myquery):
     if count < 2:
         row_contents = [a["title"].replace('\t',''), a["url"].replace('\t',''), a["article_section"], a["summary"].replace('\t',''), a["date"].replace('\t',''),
@@ -35,5 +41,6 @@ for a in articles.find(myquery):
         with open('news_data.csv', 'a') as data_file:
             newFileWriter = csv.writer(data_file)
             newFileWriter.writerow(row_contents)
+        data_file.close()
     else:
         break
