@@ -26,7 +26,7 @@ articles = db.weekarticles
 
 myquery = { "url": { "$regex": "https://namehnews.com/" } }
 for a in articles.find(myquery):
-    row_contents = [a["title"], a["url"], a["sections"], a["summary"], a["date"],
+    row_contents = [a["title"], a["url"], a["article_section"], a["summary"], a["date"],
                     a["code"], a["tags"], a["text"]]
     with open('news_data.csv', 'a') as data_file:
         newFileWriter = csv.writer(data_file)
