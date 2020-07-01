@@ -32,7 +32,7 @@ with open('news_data.csv', 'w') as data_file:
 count = 0
 myquery = { "url": { "$regex": "http://www.akhbarbank.com" } }
 for a in articles.find(myquery):
-    if count < 2:
+    if count > -1:
         row_contents = [a["title"].replace('\t',''), a["url"].replace('\t',''), a["article_section"], a["summary"].replace('\t',''), a["date"].replace('\t',''),
                         a["code"].replace('\t',''), a["tags"], a["text"].replace('\t','')]
         print("*******************************************************************************")
