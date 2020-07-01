@@ -27,8 +27,8 @@ count = 0
 myquery = { "url": { "$regex": "https://namehnews.com/" } }
 for a in articles.find(myquery):
     if count < 2:
-        row_contents = [a["title"], a["url"], a["article_section"], a["summary"], a["date"],
-                        a["code"], a["tags"], a["text"]]
+        row_contents = [a["title"].replace('\t',''), a["url"].replace('\t',''), a["article_section"], a["summary"].replace('\t',''), a["date"].replace('\t',''),
+                        a["code"].replace('\t',''), a["tags"], a["text"].replace('\t','')]
         print("*******************************************************************************")
         print(row_contents)
         count += 1    
