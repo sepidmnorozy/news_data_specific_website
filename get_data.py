@@ -23,15 +23,17 @@ from pymongo import MongoClient
 client = MongoClient()
 db = client['newsdb_week']
 articles = db.weekarticles
-
+count = 0
 myquery = { "url": { "$regex": "https://namehnews.com/" } }
 for a in articles.find(myquery):
-    row_contents = [a["title"], a["url"], a["article_section"], a["summary"], a["date"],
-                    a["code"], a["tags"], a["text"]]
-    print("*******************************************************************************")
-    print(row_contents)
-    print("*******************************************************************************")
-    # with open('news_data.csv', 'a') as data_file:
-    #     newFileWriter = csv.writer(data_file)
-    #     newFileWriter.writerow(row_contents)
-
+    if count < 2:
+        row_contents = [a["title"], a["url"], a["article_section"], a["summary"], a["date"],
+                        a["code"], a["tags"], a["text"]]
+        print("*******************************************************************************")
+        print(row_contents)
+        count += 1    
+        with open('news_data.csv', 'a') as data_file:
+            newFileWriter = csv.writer(data_file)
+            newFileWriter.writerow(row_contents)
+    else:
+        break
