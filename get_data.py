@@ -33,14 +33,21 @@ count = 0
 myquery = { "url": { "$regex": website } }
 for a in articles.find(myquery):
     if count > -1:
-        row_contents = [" " if a["title"] is None else a["title"].replace('\t',''),
-                        " " if a["url"] is None else a["url"].replace('\t', ''),
-                        a["article_section"],
+        if 'title' in a:
+            row_contents = [" " if a["title"] is None else a["title"].replace('\t',''),
+                            " " if a["url"] is None else a["url"].replace('\t', ''),
+                            a["article_section"],
                         " " if a["summary"] is None else a["summary"].replace('\t', ''),
                         " " if a["date"] is None else a["date"].replace('\t', ''),
                         " " if a["code"] is None else a["code"].replace('\t', ''),
-                        a["tags"],
-                        " " if a["text"] is None else a["text"].replace('\t', '')]
+                        a["tags"], " " if a["text"] is None else a["text"].replace('\t', '')]
+        else:
+            row_contents = [" ", " " if a["url"] is None else a["url"].replace('\t', ''),
+                            a["article_section"],
+                            " " if a["summary"] is None else a["summary"].replace('\t', ''),
+                            " " if a["date"] is None else a["date"].replace('\t', ''),
+                            " " if a["code"] is None else a["code"].replace('\t', ''),
+                            a["tags"], " " if a["text"] is None else a["text"].replace('\t', '')]
         print("*******************************************************************************")
         print(row_contents)
         count += 1    
