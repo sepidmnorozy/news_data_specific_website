@@ -39,14 +39,14 @@ for a in articles.find(myquery):
                             a["article_section"],
                         " " if a["summary"] is None else a["summary"].replace('\t', ''),
                         " " if a["date"] is None else a["date"].replace('\t', ''),
-                        " " if a["code"] is None else a["code"].replace('\t', ''),
+                        " " if a["code"] is None else a["code"],
                         a["tags"], " " if a["text"] is None else a["text"].replace('\t', '')]
         else:
             row_contents = [" ", " " if a["url"] is None else a["url"].replace('\t', ''),
                             a["article_section"],
                             " " if a["summary"] is None else a["summary"].replace('\t', ''),
                             " " if a["date"] is None else a["date"].replace('\t', ''),
-                            " " if a["code"] is None else a["code"].replace('\t', ''),
+                            " " if a["code"] is None else a["code"],
                             a["tags"], " " if a["text"] is None else a["text"].replace('\t', '')]
         print("*******************************************************************************")
         print(row_contents)
