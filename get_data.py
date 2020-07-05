@@ -1,6 +1,6 @@
 import csv
 from pymongo import MongoClient
-
+from initials import *
 # with open('news_data.csv','r') as userFile:
 #     userFileReader = csv.reader(userFile)
 #     for row in userFileReader:
@@ -21,16 +21,16 @@ from pymongo import MongoClient
 
 
 client = MongoClient()
-db = client['newsdb_week']
-articles = db.weekarticles
+db = client[db_name]
+articles = db[articles]
 
 row_contents = ["title", "url", "article_section", "summary", "date", "code", "tags", "text"]
-with open('news_data.csv', 'w') as data_file:
+with open(output_name, 'w') as data_file:
     newFileWriter = csv.writer(data_file)
     newFileWriter.writerow(row_contents)
 
 count = 0
-myquery = { "url": { "$regex": "http://www.akhbarbank.com" } }
+myquery = { "url": { "$regex": website } }
 for a in articles.find(myquery):
     if count > -1:
         row_contents = [" " if a["title"] is None else a["title"].replace('\t',''),
@@ -44,9 +44,11 @@ for a in articles.find(myquery):
         print("*******************************************************************************")
         print(row_contents)
         count += 1    
-        with open('news_data.csv', 'a') as data_file:
+        with open(output_name, 'a') as data_file:
             newFileWriter = csv.writer(data_file)
             newFileWriter.writerow(row_contents)
         data_file.close()
     else:
         break
+
+print(count)
